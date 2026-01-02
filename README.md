@@ -1,23 +1,40 @@
 # Synqly Go SDK
 
-Official Go client for Synqly API - Unified LLM Gateway
+Official Go client for the **Synqly API** — a unified LLM gateway that lets you interact with multiple AI providers using a single interface.
+
+---
+
+## Features
+
+* Unified access to OpenAI, Anthropic, and more
+* Simple, idiomatic Go API
+* Multi-turn conversations
+* Configurable parameters (temperature, max tokens, etc.)
+* Built-in error handling
+* Automatic use of Synqly production endpoints
+
+---
 
 ## Installation
+
 ```bash
-go get github.com/onoja123/synqly-go
+go get github.com/onoja123/synqly-go/pkg/synqly
 ```
 
+---
+
 ## Quick Start
+
 ```go
 package main
 
 import (
-    "fmt"
     "github.com/onoja123/synqly-go/pkg/synqly"
 )
 
 func main() {
     logger := synqly.Logger{}
+
     client := synqly.NewClient(synqly.Config{
         APIKey: "sk_synqly_your_key_here",
     })
@@ -38,9 +55,12 @@ func main() {
 }
 ```
 
+---
+
 ## Usage
 
 ### Basic Chat
+
 ```go
 response, err := client.Chat.Create(synqly.ChatCreateParams{
     Model: "gpt-4",
@@ -50,15 +70,18 @@ response, err := client.Chat.Create(synqly.ChatCreateParams{
 })
 ```
 
+---
+
 ### With Options
+
 ```go
 temp := 0.7
 maxTokens := 500
 
 response, err := client.Chat.Create(synqly.ChatCreateParams{
-    Provider:    "openai",
-    Model:       "gpt-4",
-    Messages:    []synqly.Message{
+    Provider: "openai",
+    Model:    "gpt-4",
+    Messages: []synqly.Message{
         {Role: "system", Content: "You are helpful."},
         {Role: "user", Content: "Explain quantum computing."},
     },
@@ -67,7 +90,10 @@ response, err := client.Chat.Create(synqly.ChatCreateParams{
 })
 ```
 
+---
+
 ### Multi-turn Conversation
+
 ```go
 response, err := client.Chat.Create(synqly.ChatCreateParams{
     Model: "gpt-4",
@@ -79,7 +105,20 @@ response, err := client.Chat.Create(synqly.ChatCreateParams{
 })
 ```
 
+---
+
+## Response Metadata
+
+```go
+logger.Printf("Response: %s", response.GetContent())
+logger.Printf("Cached: %v", response.Cached)
+logger.Printf("Tokens Used: %d", response.Usage.TotalTokens)
+```
+
+---
+
 ## Error Handling
+
 ```go
 response, err := client.Chat.Create(params)
 if err != nil {
@@ -92,52 +131,15 @@ if err != nil {
 }
 ```
 
-# synqly-go
+---
 
-A simple Go SDK for Synqly's chat API.
+## Notes
 
-## Installation
+* No need to set a `BaseURL` — the SDK uses Synqly’s production endpoint by default
+* Supports multiple providers through a single API
+* Designed to be lightweight and developer-friendly
 
-```
-go get github.com/onoja123/synqly-go/pkg/synqly
-```
-
-## Usage
-
-```go
-package main
-
-import (
-    "github.com/onoja123/synqly-go/pkg/synqly"
-)
-
-func main() {
-    logger := synqly.Logger{}
-    client := synqly.NewClient(synqly.Config{
-        APIKey: "sk_synqly_your_key_here",
-    })
-
-    response, err := client.Chat.Create(synqly.ChatCreateParams{
-        Provider: "anthropic",
-        Model:    "claude-sonnet-4",
-        Messages: []synqly.Message{
-            {Role: "user", Content: "Hello!"},
-        },
-    })
-
-    if err != nil {
-        logger.Fatal(err)
-    }
-
-    logger.Printf("Response: %s", response.GetContent())
-    logger.Printf("Cached: %v", response.Cached)
-    logger.Printf("Tokens: %d", response.Usage.TotalTokens)
-}
-```
-
-- No need to set the BaseURL for normal usage.
-- The SDK will use the correct production endpoint by default.
-- Use the built-in logger for consistent output.
+---
 
 ## License
 
