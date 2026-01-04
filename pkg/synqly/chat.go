@@ -15,7 +15,9 @@ func (s *ChatService) Create(params ChatCreateParams) (*ChatResponse, error) {
 	}
 
 	var apiResp APIResponse
-	err := s.client.request("POST", "/api/v1/chat/create-chat", params, &apiResp)
+
+	err := s.client.request("POST", "/chat/create-chat", params, &apiResp)
+
 	if err != nil {
 		return nil, err
 	}

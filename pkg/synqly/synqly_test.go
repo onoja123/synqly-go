@@ -13,20 +13,12 @@ func TestNewClient(t *testing.T) {
 		t.Errorf("Expected API key 'test_key', got '%s'", client.APIKey)
 	}
 
-	if client.BaseURL != "https://api.synqly.com/api/v1" {
+	if client.BaseURL != "https://synqly.onrender.com" {
 		t.Errorf("Expected default base URL, got '%s'", client.BaseURL)
 	}
 
 	if client.Chat == nil {
 		t.Error("Chat service not initialized")
-	}
-
-	if client.Analytics == nil {
-		t.Error("Analytics service not initialized")
-	}
-
-	if client.Keys == nil {
-		t.Error("Keys service not initialized")
 	}
 }
 

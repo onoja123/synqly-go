@@ -2,6 +2,6 @@ module example
 
 replace github.com/onoja123/synqly-go => ../
 
-go 1.25.1
+go 1.22
 
 require github.com/onoja123/synqly-go v0.0.0-00010101000000-000000000000
