@@ -13,7 +13,7 @@ func TestNewClient(t *testing.T) {
 		t.Errorf("Expected API key 'test_key', got '%s'", client.APIKey)
 	}
 
-	if client.BaseURL != "https://synqly.onrender.com" {
+	if client.BaseURL != "https://api.synqly.xyz" {
 		t.Errorf("Expected default base URL, got '%s'", client.BaseURL)
 	}
 

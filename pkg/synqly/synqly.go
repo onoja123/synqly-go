@@ -27,7 +27,7 @@ type Config struct {
 // NewClient creates a new Synqly client
 func NewClient(config Config) *Client {
 	if config.BaseURL == "" {
-		config.BaseURL = "https://synqly.onrender.com"
+		config.BaseURL = "https://api.synqly.xyz"
 	}
 	config.BaseURL = strings.TrimRight(config.BaseURL, "/")
 
